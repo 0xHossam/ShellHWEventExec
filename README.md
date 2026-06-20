@@ -96,3 +96,13 @@ That rule is scoped to Comodo-specific behavior, not the direct PTY execution pa
 ## detection
 
 Elastic will probably cover this in a day.
+
+-- 
+
+## resources
+
+* [https://learn.microsoft.com/en-us/windows/win32/api/shobjidl/nf-shobjidl-ihweventhandler-initialize](https://learn.microsoft.com/en-us/windows/win32/api/shobjidl/nf-shobjidl-ihweventhandler-initialize)
+* [https://learn.microsoft.com/en-us/windows/win32/shell/how-to-register-a-handler-for-a-device-event](https://learn.microsoft.com/en-us/windows/win32/shell/how-to-register-a-handler-for-a-device-event)
+* [https://lolbas-project.github.io/lolbas/Libraries/Shell32/](https://lolbas-project.github.io/lolbas/Libraries/Shell32/)
+* [https://attack.mitre.org/techniques/T1218/011/](https://attack.mitre.org/techniques/T1218/011/)
+* [https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_comodo_ssh_shellhost_cmd_spawn/](https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_comodo_ssh_shellhost_cmd_spawn/)
